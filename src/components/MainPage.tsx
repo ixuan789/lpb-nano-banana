@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 import { Button } from '@/components/ui/button'
-import { LogOut, Sparkles, Image as ImageIcon, Type, History } from 'lucide-react'
+import { LogOut, Image as ImageIcon, Type, History } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import ImageToImage from './ImageToImage'
 import TextToImage from './TextToImage'
@@ -26,7 +26,7 @@ export default function MainPage() {
           <div className="flex items-center justify-between h-14 sm:h-16">
             <div className="flex items-center space-x-2 sm:space-x-3">
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+                🍌
               </div>
               <h1 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-700 bg-clip-text text-transparent">
                 Nano Banana
