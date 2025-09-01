@@ -271,7 +271,7 @@ export default function ImageToImage() {
       
       <div className="flex flex-col xl:flex-row gap-4 lg:gap-6 h-full items-stretch">
       {/* 左侧参考图片区 */}
-      <Card className="w-full xl:w-1/3 2xl:w-1/4 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-orange-100 shadow-xl rounded-2xl">
+      <Card className="w-full xl:w-1/3 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-orange-100 shadow-xl rounded-2xl">
         <div className="bg-gradient-to-r from-orange-50 to-red-50 border-b border-orange-100 min-h-[60px] lg:min-h-[80px] flex items-center px-4 lg:px-6 py-2 lg:py-3 rounded-t-2xl">
           <div className="flex items-center gap-2 lg:gap-3 text-base lg:text-lg font-bold w-full">
             <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">参考图片</span>
@@ -446,7 +446,7 @@ export default function ImageToImage() {
       </Card>
 
       {/* 中间设置区 */}
-      <Card className="w-full xl:w-1/3 2xl:w-1/4 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-emerald-100 shadow-xl rounded-2xl">
+      <Card className="w-full xl:w-1/3 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-emerald-100 shadow-xl rounded-2xl">
         <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border-b border-emerald-100 min-h-[60px] lg:min-h-[80px] flex items-center px-4 lg:px-6 py-2 lg:py-3 rounded-t-2xl">
           <div className="flex items-center gap-2 lg:gap-3 text-base lg:text-lg font-bold w-full">
             <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">生成设置</span>
@@ -523,7 +523,7 @@ export default function ImageToImage() {
       </Card>
 
       {/* 右侧生成结果区 */}
-      <Card className="w-full xl:w-1/3 2xl:w-1/2 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-blue-100 shadow-xl rounded-2xl">
+      <Card className="w-full xl:w-1/3 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-blue-100 shadow-xl rounded-2xl">
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-100 min-h-[60px] lg:min-h-[80px] flex items-center px-4 lg:px-6 py-2 lg:py-3 rounded-t-2xl">
           <div className="flex items-center gap-2 lg:gap-3 text-base lg:text-lg font-bold w-full">
             <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">生成结果</span>
