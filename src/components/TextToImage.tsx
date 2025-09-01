@@ -161,7 +161,7 @@ export default function TextToImage() {
   return (
     <div className="flex flex-col xl:flex-row gap-4 lg:gap-6 h-full items-stretch">
       {/* 左侧输入区 */}
-      <Card className="w-full xl:w-1/3 2xl:w-1/4 h-fit bg-white/90 backdrop-blur-sm border-emerald-100 shadow-xl rounded-2xl">
+      <Card className="w-full xl:w-2/5 h-fit bg-white/90 backdrop-blur-sm border-emerald-100 shadow-xl rounded-2xl">
         <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border-b border-emerald-100 min-h-[80px] flex items-center px-6 py-3 rounded-t-2xl">
           <div className="flex items-center gap-3 text-lg font-bold w-full">
             <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">文生图设置</span>
@@ -238,7 +238,7 @@ export default function TextToImage() {
       </Card>
 
       {/* 右侧生成结果区 */}
-      <Card className="w-full xl:w-2/3 2xl:w-3/4 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-emerald-100 shadow-xl rounded-2xl">
+      <Card className="w-full xl:w-3/5 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-emerald-100 shadow-xl rounded-2xl">
         <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border-b border-emerald-100 min-h-[80px] flex items-center px-6 py-3 rounded-t-2xl">
           <div className="flex items-center gap-3 text-lg font-bold w-full">
             <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">生成结果</span>

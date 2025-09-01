@@ -39,23 +39,42 @@ export default function GenerationHistory() {
   const deleteRecord = async (id: string) => {
     setIsDeleting(id)
     try {
+      console.log('🗑️ 开始删除记录:', id)
       const response = await fetch(`/api/history?id=${id}`, {
         method: 'DELETE',
       })
       
+      console.log('删除响应状态:', response.status)
+      
+      if (!response.ok) {
+        console.error('删除请求失败:', response.status, response.statusText)
+        if (response.status === 404) {
+          // 记录不存在，可能是数据不同步，刷新列表
+          console.log('记录不存在，刷新历史记录列表')
+          await fetchHistory()
+          setError('记录已不存在，列表已刷新')
+        } else {
+          setError(`删除失败: ${response.status} ${response.statusText}`)
+        }
+        return
+      }
+      
       const data = await response.json()
+      console.log('删除响应数据:', data)
       
       if (data.success) {
         setHistoryRecords(prev => prev.filter(record => record.id !== id))
         if (selectedRecord?.id === id) {
           setSelectedRecord(null)
         }
+        console.log('✅ 记录删除成功')
       } else {
+        console.error('删除失败:', data.error)
         setError(data.error || '删除失败')
       }
     } catch (err) {
       console.error('删除记录错误:', err)
-      setError('删除失败，请稍后重试')
+      setError(`删除失败: ${err instanceof Error ? err.message : '网络错误'}`)
     } finally {
       setIsDeleting(null)
     }
@@ -137,11 +156,22 @@ export default function GenerationHistory() {
   useEffect(() => {
     fetchHistory()
   }, [])
+  
+  // 添加定期刷新功能，确保数据同步
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isLoading && !isDeleting) {
+        fetchHistory()
+      }
+    }, 30000) // 每30秒刷新一次
+    
+    return () => clearInterval(interval)
+  }, [isLoading, isDeleting])
 
   return (
     <div className="flex flex-col xl:flex-row gap-4 lg:gap-6 xl:gap-8 h-full items-stretch">
       {/* 左侧历史记录列表 */}
-      <div className="w-full xl:w-1/3 2xl:w-1/4 space-y-3 lg:space-y-4">
+      <div className="w-full xl:w-2/5 space-y-3 lg:space-y-4">
         <Card className="pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-cyan-100 shadow-xl rounded-2xl">
           <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border-b border-cyan-100 min-h-[60px] lg:min-h-[80px] flex items-center px-4 lg:px-6 py-2 lg:py-3 rounded-t-2xl">
             <div className="flex items-center justify-between w-full">
@@ -263,7 +293,7 @@ export default function GenerationHistory() {
       </div>
 
       {/* 右侧详情展示 */}
-      <div className="w-full xl:w-2/3 2xl:w-3/4">
+      <div className="w-full xl:w-3/5">
         {selectedRecord ? (
           <Card className="bg-white/90 backdrop-blur-sm border-cyan-100 shadow-xl rounded-2xl">
             <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border-b border-cyan-100 min-h-[60px] lg:min-h-[80px] flex items-center px-4 lg:px-6 py-2 lg:py-3 rounded-t-2xl">
