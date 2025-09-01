@@ -30,7 +30,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 via-rose-50 to-amber-100 p-4">
       <div className="absolute inset-0 bg-gradient-to-br from-orange-200/30 via-rose-200/20 to-amber-200/30"></div>
       <Card className="w-full max-w-md relative z-10 backdrop-blur-sm bg-white/95 shadow-2xl border border-orange-200/50">
-        <CardHeader className="text-center">
+        <CardHeader className="text-center pt-8">
           <div className="mx-auto w-12 h-12 bg-gradient-to-r from-orange-500 to-rose-500 rounded-full flex items-center justify-center mb-4 shadow-lg">
             <Lock className="w-6 h-6 text-white" />
           </div>
@@ -38,7 +38,7 @@ export default function LoginPage() {
             Nano Banana
           </CardTitle>
           <CardDescription className="text-gray-600">
-            来自谷歌的最强图片生成模型
+            Hi,你来啦。
           </CardDescription>
         </CardHeader>
         <CardContent>
