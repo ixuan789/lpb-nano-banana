@@ -4,8 +4,9 @@ import { useState, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Slider } from '@/components/ui/slider'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Copy, Loader2, Upload, X, Download, Image as ImageIcon, ChevronLeft, ChevronRight, Maximize2, Minimize2, ArrowLeftRight } from 'lucide-react'
+import { Card, CardContent } from '@/components/ui/card'
+import { Copy, Loader2, Upload, X, Download, Image as ImageIcon, ChevronLeft, ChevronRight, Maximize2, ArrowLeftRight } from 'lucide-react'
+import Image from 'next/image'
 
 export default function ImageToImage() {
   const [prompt, setPrompt] = useState('')
@@ -13,15 +14,11 @@ export default function ImageToImage() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [referenceImages, setReferenceImages] = useState<File[]>([])
   const [generatedImages, setGeneratedImages] = useState<string[]>([])
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
   const [selectedReferenceIndex, setSelectedReferenceIndex] = useState(0)
   const [currentGeneratedImageIndex, setCurrentGeneratedImageIndex] = useState(0)
-  const [isFullscreen, setIsFullscreen] = useState(false)
-  const [fullscreenImageUrl, setFullscreenImageUrl] = useState('')
   const [error, setError] = useState('')
   const [textResponse, setTextResponse] = useState('')
   const [comparisonPosition, setComparisonPosition] = useState(50)
-  const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleCopyPrompt = async () => {
@@ -113,7 +110,6 @@ export default function ImageToImage() {
     setIsGenerating(true)
     setError('')
     setGeneratedImages([])
-    setSelectedImageIndex(null)
 
     try {
       const formData = new FormData()
@@ -234,10 +230,7 @@ export default function ImageToImage() {
     document.addEventListener('keydown', handleEsc)
   }
 
-  const closeFullscreen = () => {
-    setIsFullscreen(false)
-    setFullscreenImageUrl('')
-  }
+
 
   const navigateReference = (direction: 'prev' | 'next') => {
     if (direction === 'prev') {
@@ -247,17 +240,10 @@ export default function ImageToImage() {
     }
   }
 
-  const navigateGenerated = (direction: 'prev' | 'next') => {
-    if (direction === 'prev') {
-      setCurrentGeneratedImageIndex(prev => prev > 0 ? prev - 1 : generatedImages.length - 1)
-    } else {
-      setCurrentGeneratedImageIndex(prev => prev < generatedImages.length - 1 ? prev + 1 : 0)
-    }
-  }
+
 
   const handleComparisonDragStart = (e: React.MouseEvent) => {
      e.preventDefault()
-     setIsDragging(true)
      
      const container = e.currentTarget.parentElement
      if (!container) return
@@ -270,7 +256,7 @@ export default function ImageToImage() {
      }
      
      const handleMouseUp = () => {
-       setIsDragging(false)
+  
        document.removeEventListener('mousemove', handleMouseMove)
        document.removeEventListener('mouseup', handleMouseUp)
      }
@@ -317,9 +303,11 @@ export default function ImageToImage() {
               <div className="relative">
                 <div className="aspect-square bg-white rounded-xl border-2 border-orange-200 overflow-hidden shadow-lg">
                   {referenceImages[selectedReferenceIndex] && (
-                    <img
+                    <Image
                       src={URL.createObjectURL(referenceImages[selectedReferenceIndex])}
                       alt={`参考图片 ${selectedReferenceIndex + 1}`}
+                      width={400}
+                      height={400}
                       className="w-full h-full object-contain"
                     />
                   )}
@@ -375,9 +363,11 @@ export default function ImageToImage() {
                         }`}
                       >
                         {file && (
-                          <img
+                          <Image
                             src={URL.createObjectURL(file)}
                             alt={`参考图片 ${index + 1}`}
+                            width={100}
+                            height={100}
                             className="w-full h-full object-cover"
                           />
                         )}
@@ -543,9 +533,11 @@ export default function ImageToImage() {
               {/* 主图片显示区域 - 1:1 比例 */}
               <div className="relative">
                 <div className="aspect-square bg-white rounded-xl border-2 border-blue-200 overflow-hidden shadow-lg">
-                  <img
+                  <Image
                     src={generatedImages[currentGeneratedImageIndex]}
                     alt={`生成图片 ${currentGeneratedImageIndex + 1}`}
+                    width={400}
+                    height={400}
                     className="w-full h-full object-contain"
                   />
                 </div>
@@ -602,9 +594,11 @@ export default function ImageToImage() {
                           : 'border-blue-200 hover:border-blue-400'
                       }`}
                     >
-                      <img
+                      <Image
                         src={imageUrl}
                         alt={`生成图片 ${index + 1}`}
+                        width={100}
+                        height={100}
                         className="w-full h-full object-cover"
                       />
                     </button>
@@ -624,9 +618,11 @@ export default function ImageToImage() {
                   {/* 原图 */}
                   <div className="absolute inset-0">
                     {referenceImages[selectedReferenceIndex] && (
-                      <img
+                      <Image
                         src={URL.createObjectURL(referenceImages[selectedReferenceIndex])}
                         alt="参考图片"
+                        width={400}
+                        height={400}
                         className="w-full h-full object-contain"
                       />
                     )}
@@ -642,9 +638,11 @@ export default function ImageToImage() {
                       clipPath: `polygon(${comparisonPosition}% 0%, 100% 0%, 100% 100%, ${comparisonPosition}% 100%)`
                     }}
                   >
-                    <img
+                    <Image
                       src={generatedImages[currentGeneratedImageIndex]}
                       alt="生成图片"
+                      width={400}
+                      height={400}
                       className="w-full h-full object-contain"
                     />
                     <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
@@ -687,9 +685,11 @@ export default function ImageToImage() {
                               : 'border-blue-200 hover:border-blue-400'
                           }`}
                         >
-                          <img
+                          <Image
                             src={URL.createObjectURL(file)}
                             alt={`参考图片 ${index + 1}`}
+                            width={100}
+                            height={100}
                             className="w-full h-full object-cover"
                           />
                         </button>

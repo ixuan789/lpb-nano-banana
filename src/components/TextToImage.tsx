@@ -4,8 +4,9 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Slider } from '@/components/ui/slider'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Copy, Loader2, Download, Image as ImageIcon, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react'
+import { Card, CardContent } from '@/components/ui/card'
+import { Copy, Loader2, Download, Image as ImageIcon, Maximize2 } from 'lucide-react'
+import Image from 'next/image'
 
 export default function TextToImage() {
   const [prompt, setPrompt] = useState('')
@@ -89,17 +90,7 @@ export default function TextToImage() {
     document.addEventListener('keydown', handleEsc)
   }
 
-  const navigateGenerated = (direction: 'prev' | 'next') => {
-    if (direction === 'prev') {
-      setCurrentGeneratedImageIndex(prev => 
-        prev > 0 ? prev - 1 : generatedImages.length - 1
-      )
-    } else {
-      setCurrentGeneratedImageIndex(prev => 
-        prev < generatedImages.length - 1 ? prev + 1 : 0
-      )
-    }
-  }
+
 
   const handleGenerate = async () => {
     if (!prompt.trim()) {
@@ -269,9 +260,11 @@ export default function TextToImage() {
               {/* 主图片显示区域 - 1:1 比例 */}
               <div className="relative">
                 <div className="aspect-square bg-white rounded-xl border-2 border-emerald-200 overflow-hidden shadow-lg">
-                  <img
+                  <Image
                     src={generatedImages[currentGeneratedImageIndex]}
                     alt={`生成图片 ${currentGeneratedImageIndex + 1}`}
+                    width={400}
+                    height={400}
                     className="w-full h-full object-contain"
                   />
                 </div>
@@ -328,9 +321,11 @@ export default function TextToImage() {
                           : 'border-emerald-200 hover:border-emerald-400'
                       }`}
                     >
-                      <img
+                      <Image
                         src={imageUrl}
                         alt={`生成图片 ${index + 1}`}
+                        width={100}
+                        height={100}
                         className="w-full h-full object-cover"
                       />
                     </button>

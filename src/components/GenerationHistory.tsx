@@ -5,8 +5,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import { Copy, Download, Trash2, RefreshCw, Calendar, Image as ImageIcon, Type, Loader2 } from 'lucide-react'
+import { Copy, Download, Trash2, RefreshCw, Image as ImageIcon, Type, Loader2 } from 'lucide-react'
 import { HistoryRecord } from '@/lib/supabase'
+import Image from 'next/image'
 
 export default function GenerationHistory() {
   const [historyRecords, setHistoryRecords] = useState<HistoryRecord[]>([])
@@ -321,9 +322,11 @@ export default function GenerationHistory() {
                 <div className="grid grid-cols-2 gap-6">
                   {selectedRecord.image_urls.map((imageUrl, index) => (
                     <div key={index} className="relative group">
-                      <img
+                      <Image
                         src={imageUrl}
                         alt={`生成的图片 ${index + 1}`}
+                        width={400}
+                        height={224}
                         className="w-full h-56 object-cover rounded-xl border border-gray-200 shadow-md group-hover:shadow-xl transition-all duration-300"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 rounded-xl flex items-center justify-center">
