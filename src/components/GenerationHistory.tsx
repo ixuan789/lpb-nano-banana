@@ -139,96 +139,96 @@ export default function GenerationHistory() {
   }, [])
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
+    <div className="flex flex-col xl:flex-row gap-4 lg:gap-6 xl:gap-8 h-full items-stretch">
       {/* 左侧历史记录列表 */}
-      <div className="lg:col-span-1 space-y-4">
+      <div className="w-full xl:w-1/3 2xl:w-1/4 space-y-3 lg:space-y-4">
         <Card className="pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-cyan-100 shadow-xl rounded-2xl">
-          <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border-b border-cyan-100 min-h-[80px] flex items-center px-6 py-3 rounded-t-2xl">
+          <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border-b border-cyan-100 min-h-[60px] lg:min-h-[80px] flex items-center px-4 lg:px-6 py-2 lg:py-3 rounded-t-2xl">
             <div className="flex items-center justify-between w-full">
-              <div className="flex items-center gap-3 text-lg font-bold">
+              <div className="flex items-center gap-2 lg:gap-3 text-base lg:text-lg font-bold">
                 <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">生成历史</span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-1.5 lg:gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={fetchHistory}
                   disabled={isLoading}
-                  className="border-gray-200 hover:bg-gray-50 hover:border-gray-300"
+                  className="border-gray-200 hover:bg-gray-50 hover:border-gray-300 h-8 w-8 lg:h-9 lg:w-auto lg:px-3 p-0 lg:p-2"
                 >
-                  <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+                  <RefreshCw className={`w-3 h-3 lg:w-4 lg:h-4 ${isLoading ? 'animate-spin' : ''}`} />
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={clearAllHistory}
                   disabled={isDeleting === 'all' || !historyRecords || historyRecords.length === 0}
-                  className="border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300"
+                  className="border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300 h-8 w-8 lg:h-9 lg:w-auto lg:px-3 p-0 lg:p-2"
                 >
                   {isDeleting === 'all' ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <Loader2 className="w-3 h-3 lg:w-4 lg:h-4 animate-spin" />
                   ) : (
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-3 h-3 lg:w-4 lg:h-4" />
                   )}
                 </Button>
               </div>
             </div>
           </div>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-3 lg:space-y-4">
             {isLoading ? (
-              <div className="flex flex-col items-center justify-center py-12 space-y-4">
+              <div className="flex flex-col items-center justify-center py-8 lg:py-12 space-y-3 lg:space-y-4">
                 <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                    <Loader2 className="w-6 h-6 animate-spin text-white" />
+                  <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                    <Loader2 className="w-5 h-5 lg:w-6 lg:h-6 animate-spin text-white" />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full animate-pulse opacity-20"></div>
                 </div>
-                <p className="text-gray-600 font-medium">加载历史记录中...</p>
+                <p className="text-gray-600 font-medium text-sm lg:text-base">加载历史记录中...</p>
               </div>
             ) : error ? (
-              <div className="text-center py-12 space-y-4">
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                  <p className="text-red-600 text-sm font-medium">{error}</p>
+              <div className="text-center py-8 lg:py-12 space-y-3 lg:space-y-4">
+                <div className="bg-red-50 border border-red-200 rounded-xl p-3 lg:p-4">
+                  <p className="text-red-600 text-xs lg:text-sm font-medium">{error}</p>
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={fetchHistory}
-                  className="border-red-200 text-red-600 hover:bg-red-50"
+                  className="border-red-200 text-red-600 hover:bg-red-50 h-8 lg:h-9 text-xs lg:text-sm"
                 >
                   重试
                 </Button>
               </div>
             ) : !historyRecords || historyRecords.length === 0 ? (
-              <div className="text-center py-12 space-y-4">
-                <div className="space-y-2">
-                  <p className="text-gray-600 font-medium">还没有生成记录</p>
-                  <p className="text-sm text-gray-400">开始创作您的第一张图片吧</p>
+              <div className="text-center py-8 lg:py-12 space-y-3 lg:space-y-4">
+                <div className="space-y-1 lg:space-y-2">
+                  <p className="text-gray-600 font-medium text-sm lg:text-base">还没有生成记录</p>
+                  <p className="text-xs lg:text-sm text-gray-400">开始创作您的第一张图片吧</p>
                 </div>
               </div>
             ) : (
-              <div className="space-y-3 max-h-96 overflow-y-auto">
+              <div className="space-y-2 lg:space-y-3 max-h-80 lg:max-h-96 overflow-y-auto">
                 {historyRecords.map((record) => (
                   <div
                     key={record.id}
-                    className={`p-4 border rounded-xl cursor-pointer transition-all duration-200 hover:shadow-md ${
+                    className={`p-3 lg:p-4 border rounded-xl cursor-pointer transition-all duration-200 hover:shadow-md ${
                       selectedRecord?.id === record.id 
                         ? 'border-blue-300 bg-blue-50/50 shadow-md' 
                         : 'border-gray-200 bg-white/50 hover:bg-gray-50/50'
                     }`}
                     onClick={() => setSelectedRecord(record)}
                   >
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-between mb-2 lg:mb-3">
                       <Badge 
                         variant="outline" 
-                        className={`flex items-center gap-2 px-3 py-1 ${
+                        className={`flex items-center gap-1.5 lg:gap-2 px-2 lg:px-3 py-0.5 lg:py-1 text-xs lg:text-sm ${
                           record.type === 'text-to-image' 
                             ? 'border-green-200 text-green-700 bg-green-50' 
                             : 'border-purple-200 text-purple-700 bg-purple-50'
                         }`}
                       >
-                        {getTypeIcon(record.type)}
-                        {getTypeName(record.type)}
+                        <span className="w-3 h-3 lg:w-4 lg:h-4">{getTypeIcon(record.type)}</span>
+                        <span className="hidden sm:inline">{getTypeName(record.type)}</span>
                       </Badge>
                       <Button
                         variant="ghost"
@@ -238,21 +238,21 @@ export default function GenerationHistory() {
                           deleteRecord(record.id)
                         }}
                         disabled={isDeleting === record.id}
-                        className="h-8 w-8 p-0 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="h-7 w-7 lg:h-8 lg:w-8 p-0 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                       >
                         {isDeleting === record.id ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <Loader2 className="w-3 h-3 lg:w-4 lg:h-4 animate-spin" />
                         ) : (
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-3 h-3 lg:w-4 lg:h-4" />
                         )}
                       </Button>
                     </div>
-                    <p className="text-sm text-gray-700 line-clamp-2 mb-3 font-medium leading-relaxed">
+                    <p className="text-xs lg:text-sm text-gray-700 line-clamp-2 mb-2 lg:mb-3 font-medium leading-relaxed">
                       {record.prompt}
                     </p>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{formatDate(record.created_at)}</span>
-                      <span className="text-blue-600 bg-blue-50 px-2 py-1 rounded-md font-medium">{record.image_urls.length} 张图片</span>
+                      <span className="text-gray-500 bg-gray-100 px-1.5 lg:px-2 py-0.5 lg:py-1 rounded-md text-xs">{formatDate(record.created_at)}</span>
+                      <span className="text-blue-600 bg-blue-50 px-1.5 lg:px-2 py-0.5 lg:py-1 rounded-md font-medium text-xs">{record.image_urls.length} 张图片</span>
                     </div>
                   </div>
                 ))}
@@ -263,29 +263,30 @@ export default function GenerationHistory() {
       </div>
 
       {/* 右侧详情展示 */}
-      <div className="lg:col-span-2">
+      <div className="w-full xl:w-2/3 2xl:w-3/4">
         {selectedRecord ? (
           <Card className="bg-white/90 backdrop-blur-sm border-cyan-100 shadow-xl rounded-2xl">
-            <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border-b border-cyan-100 min-h-[80px] flex items-center px-6 py-3 rounded-t-2xl">
-              <div className="flex items-center gap-3 text-lg font-bold">
+            <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border-b border-cyan-100 min-h-[60px] lg:min-h-[80px] flex items-center px-4 lg:px-6 py-2 lg:py-3 rounded-t-2xl">
+              <div className="flex items-center gap-2 lg:gap-3 text-base lg:text-lg font-bold">
                 <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">记录详情</span>
               </div>
             </div>
-            <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-3 text-xl font-semibold text-gray-800">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+            <CardHeader className="pb-3 lg:pb-4 px-4 lg:px-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 lg:gap-0">
+                <CardTitle className="flex items-center gap-2 lg:gap-3 text-lg lg:text-xl font-semibold text-gray-800">
+                  <div className={`w-8 h-8 lg:w-10 lg:h-10 rounded-xl flex items-center justify-center ${
                     selectedRecord.type === 'text-to-image' 
                       ? 'bg-gradient-to-br from-green-500 to-emerald-600' 
                       : 'bg-gradient-to-br from-purple-500 to-indigo-600'
                   }`}>
-                    <div className="text-white">{getTypeIcon(selectedRecord.type)}</div>
+                    <div className="text-white w-4 h-4 lg:w-5 lg:h-5">{getTypeIcon(selectedRecord.type)}</div>
                   </div>
-                  {getTypeName(selectedRecord.type)} 详情
+                  <span className="hidden sm:inline">{getTypeName(selectedRecord.type)} 详情</span>
+                  <span className="sm:hidden">详情</span>
                 </CardTitle>
                 <Badge 
                   variant="outline" 
-                  className={`px-3 py-1 ${
+                  className={`px-2 lg:px-3 py-0.5 lg:py-1 text-xs lg:text-sm ${
                     selectedRecord.type === 'text-to-image' 
                       ? 'border-green-200 text-green-700 bg-green-50' 
                       : 'border-purple-200 text-purple-700 bg-purple-50'
@@ -295,31 +296,31 @@ export default function GenerationHistory() {
                 </Badge>
               </div>
             </CardHeader>
-            <CardContent className="space-y-8">
+            <CardContent className="space-y-6 lg:space-y-8 px-4 lg:px-6">
               {/* 提示词 */}
-              <div className="space-y-3">
+              <div className="space-y-2 lg:space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-semibold text-gray-800 text-lg">提示词</h4>
+                  <h4 className="font-semibold text-gray-800 text-base lg:text-lg">提示词</h4>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => handleCopyPrompt(selectedRecord.prompt)}
-                    className="h-9 w-9 p-0 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="h-8 w-8 lg:h-9 lg:w-9 p-0 hover:bg-gray-100 rounded-lg transition-colors"
                   >
-                    <Copy className="w-4 h-4 text-gray-600" />
+                    <Copy className="w-3 h-3 lg:w-4 lg:h-4 text-gray-600" />
                   </Button>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-                  <p className="text-sm text-gray-700 leading-relaxed">{selectedRecord.prompt}</p>
+                <div className="p-3 lg:p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
+                  <p className="text-xs lg:text-sm text-gray-700 leading-relaxed">{selectedRecord.prompt}</p>
                 </div>
               </div>
 
               <Separator className="bg-gray-200" />
 
               {/* 生成的图片 */}
-              <div className="space-y-5">
-                <h4 className="font-semibold text-gray-800 text-lg">生成的图片 ({selectedRecord.image_urls.length} 张)</h4>
-                <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-4 lg:space-y-5">
+                <h4 className="font-semibold text-gray-800 text-base lg:text-lg">生成的图片 ({selectedRecord.image_urls.length} 张)</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                   {selectedRecord.image_urls.map((imageUrl, index) => (
                     <div key={index} className="relative group">
                       <Image
@@ -327,30 +328,30 @@ export default function GenerationHistory() {
                         alt={`生成的图片 ${index + 1}`}
                         width={400}
                         height={224}
-                        className="w-full h-56 object-cover rounded-xl border border-gray-200 shadow-md group-hover:shadow-xl transition-all duration-300"
+                        className="w-full h-40 sm:h-48 lg:h-56 object-cover rounded-xl border border-gray-200 shadow-md group-hover:shadow-xl transition-all duration-300"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 rounded-xl flex items-center justify-center">
-                        <div className="opacity-0 group-hover:opacity-100 transition-all duration-200 flex gap-3">
+                        <div className="opacity-0 group-hover:opacity-100 transition-all duration-200 flex gap-2 lg:gap-3">
                           <Button
                             size="sm"
                             variant="secondary"
                             onClick={() => handleCopyImage(imageUrl)}
-                            className="bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg border border-gray-200"
+                            className="bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg border border-gray-200 h-8 w-8 lg:h-9 lg:w-9 p-0"
                           >
-                            <Copy className="w-4 h-4" />
+                            <Copy className="w-3 h-3 lg:w-4 lg:h-4" />
                           </Button>
                           <Button
                             size="sm"
                             variant="secondary"
                             onClick={() => handleDownloadImage(imageUrl, selectedRecord.id, index)}
-                            className="bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg border border-gray-200"
+                            className="bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg border border-gray-200 h-8 w-8 lg:h-9 lg:w-9 p-0"
                           >
-                            <Download className="w-4 h-4" />
+                            <Download className="w-3 h-3 lg:w-4 lg:h-4" />
                           </Button>
                         </div>
                       </div>
-                      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="bg-white/90 backdrop-blur-sm rounded-lg px-2 py-1">
+                      <div className="absolute top-2 right-2 lg:top-3 lg:right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="bg-white/90 backdrop-blur-sm rounded-lg px-1.5 lg:px-2 py-0.5 lg:py-1">
                           <span className="text-xs font-medium text-gray-700">#{index + 1}</span>
                         </div>
                       </div>
@@ -362,15 +363,15 @@ export default function GenerationHistory() {
           </Card>
         ) : (
           <Card className="h-full bg-white/90 backdrop-blur-sm border-cyan-100 shadow-xl rounded-2xl">
-            <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border-b border-cyan-100 min-h-[80px] flex items-center px-6 py-3 rounded-t-2xl">
-              <div className="flex items-center gap-3 text-lg font-bold">
+            <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border-b border-cyan-100 min-h-[60px] lg:min-h-[80px] flex items-center px-4 lg:px-6 py-2 lg:py-3 rounded-t-2xl">
+              <div className="flex items-center gap-2 lg:gap-3 text-base lg:text-lg font-bold">
                 <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">详情预览</span>
               </div>
             </div>
-            <CardContent className="flex flex-col items-center justify-center h-full">
-              <div className="text-center space-y-3">
-                <h3 className="text-xl font-semibold text-gray-700">选择历史记录</h3>
-                <p className="text-gray-500 max-w-sm">从左侧列表中选择一个历史记录来查看详情</p>
+            <CardContent className="flex flex-col items-center justify-center h-full px-4 lg:px-6">
+              <div className="text-center space-y-2 lg:space-y-3">
+                <h3 className="text-lg lg:text-xl font-semibold text-gray-700">选择历史记录</h3>
+                <p className="text-gray-500 max-w-sm text-sm lg:text-base">从左侧列表中选择一个历史记录来查看详情</p>
               </div>
             </CardContent>
           </Card>

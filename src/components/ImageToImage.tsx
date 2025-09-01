@@ -269,39 +269,45 @@ export default function ImageToImage() {
     <>
 
       
-      <div className="flex flex-col lg:flex-row gap-6 h-full max-w-7xl mx-auto items-stretch">
+      <div className="flex flex-col xl:flex-row gap-4 lg:gap-6 h-full items-stretch">
       {/* 左侧参考图片区 */}
-      <Card className="flex-1 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-orange-100 shadow-xl rounded-2xl">
-        <div className="bg-gradient-to-r from-orange-50 to-red-50 border-b border-orange-100 min-h-[80px] flex items-center px-6 py-3 rounded-t-2xl">
-          <div className="flex items-center gap-3 text-lg font-bold w-full">
+      <Card className="w-full xl:w-1/3 2xl:w-1/4 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-orange-100 shadow-xl rounded-2xl">
+        <div className="bg-gradient-to-r from-orange-50 to-red-50 border-b border-orange-100 min-h-[60px] lg:min-h-[80px] flex items-center px-4 lg:px-6 py-2 lg:py-3 rounded-t-2xl">
+          <div className="flex items-center gap-2 lg:gap-3 text-base lg:text-lg font-bold w-full">
             <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">参考图片</span>
             <span className="ml-auto text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded-full font-medium">{referenceImages.length}</span>
           </div>
         </div>
-        <CardContent className="space-y-4 p-4">
+        <CardContent className="space-y-3 lg:space-y-4 p-3 lg:p-4">
           {referenceImages.length === 0 ? (
             <div 
-              className="border-2 border-dashed border-orange-200 rounded-xl p-6 text-center bg-orange-50/30 hover:bg-orange-50/50 transition-colors cursor-pointer"
+              className="border-2 border-dashed border-orange-200 rounded-xl p-4 lg:p-6 text-center bg-orange-50/30 hover:bg-orange-50/50 transition-colors cursor-pointer"
               onDragOver={handleDragOver}
               onDragEnter={handleDragEnter}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
             >
-              <div className="space-y-4">
-                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
-                  <Upload className="w-6 h-6 text-orange-600" />
+              <div className="space-y-3 lg:space-y-4">
+                <div className="w-10 h-10 lg:w-12 lg:h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
+                  <Upload className="w-5 h-5 lg:w-6 lg:h-6 text-orange-600" />
                 </div>
-                <p className="text-sm text-gray-400 font-medium">
+                <p className="text-xs lg:text-sm text-gray-400 font-medium">
                   拖拽图片到此处，或点击选择文件来上传图片，可选择多张
                 </p>
               </div>
             </div>
           ) : referenceImages.length > 0 && referenceImages[selectedReferenceIndex] ? (
-            <div className="space-y-4">
+            <div className="space-y-3 lg:space-y-4">
               {/* 主图片显示区域 - 1:1 比例 */}
               <div className="relative">
-                <div className="aspect-square bg-white rounded-xl border-2 border-orange-200 overflow-hidden shadow-lg">
+                <div 
+                  className="aspect-square bg-white rounded-xl border-2 border-orange-200 overflow-hidden shadow-lg"
+                  onDragOver={handleDragOver}
+                  onDragEnter={handleDragEnter}
+                  onDragLeave={handleDragLeave}
+                  onDrop={handleDrop}
+                >
                   {referenceImages[selectedReferenceIndex] && (
                     <Image
                       src={URL.createObjectURL(referenceImages[selectedReferenceIndex])}
@@ -318,15 +324,15 @@ export default function ImageToImage() {
                   <>
                     <button
                       onClick={() => navigateReference('prev')}
-                      className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200 border border-orange-200"
+                      className="absolute left-1 lg:left-2 top-1/2 -translate-y-1/2 w-7 h-7 lg:w-8 lg:h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200 border border-orange-200"
                     >
-                      <ChevronLeft className="w-5 h-5 text-orange-600" />
+                      <ChevronLeft className="w-4 h-4 lg:w-5 lg:h-5 text-orange-600" />
                     </button>
                     <button
                       onClick={() => navigateReference('next')}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200 border border-orange-200"
+                      className="absolute right-1 lg:right-2 top-1/2 -translate-y-1/2 w-7 h-7 lg:w-8 lg:h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200 border border-orange-200"
                     >
-                      <ChevronRight className="w-5 h-5 text-orange-600" />
+                      <ChevronRight className="w-4 h-4 lg:w-5 lg:h-5 text-orange-600" />
                     </button>
                   </>
                 )}
@@ -334,16 +340,16 @@ export default function ImageToImage() {
                 {/* 删除按钮 */}
                 <button
                   onClick={() => removeImage(selectedReferenceIndex)}
-                  className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 transition-all duration-200"
+                  className="absolute top-1 lg:top-2 right-1 lg:right-2 w-7 h-7 lg:w-8 lg:h-8 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 transition-all duration-200"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-3 h-3 lg:w-4 lg:h-4" />
                 </button>
               </div>
               
               {/* 页码显示 */}
               {referenceImages.length > 1 && (
                 <div className="text-center">
-                  <span className="text-sm font-medium text-orange-600 bg-orange-50 px-3 py-1 rounded-full border border-orange-200">
+                  <span className="text-xs lg:text-sm font-medium text-orange-600 bg-orange-50 px-2 lg:px-3 py-1 rounded-full border border-orange-200">
                     {selectedReferenceIndex + 1} / {referenceImages.length}
                   </span>
                 </div>
@@ -351,7 +357,13 @@ export default function ImageToImage() {
               
               {/* 缩略图网格 - 用于管理多张图片 */}
               {referenceImages.length > 1 && (
-                <div className="grid grid-cols-4 gap-2 max-h-32 overflow-y-auto">
+                <div 
+                  className="grid grid-cols-3 lg:grid-cols-4 gap-1.5 lg:gap-2 max-h-32 overflow-y-auto"
+                  onDragOver={handleDragOver}
+                  onDragEnter={handleDragEnter}
+                  onDragLeave={handleDragLeave}
+                  onDrop={handleDrop}
+                >
                   {referenceImages.map((file, index) => (
                     <div key={index} className="relative group">
                       <button
@@ -377,9 +389,9 @@ export default function ImageToImage() {
                           e.stopPropagation()
                           removeImage(index)
                         }}
-                        className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg hover:bg-red-600"
+                        className="absolute -top-0.5 -right-0.5 lg:-top-1 lg:-right-1 w-4 h-4 lg:w-5 lg:h-5 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg hover:bg-red-600"
                       >
-                        <X className="w-3 h-3" />
+                        <X className="w-2.5 h-2.5 lg:w-3 lg:h-3" />
                       </button>
                     </div>
                   ))}
@@ -433,41 +445,41 @@ export default function ImageToImage() {
         </CardContent>
       </Card>
 
-      {/* 中间生成设置区 */}
-      <Card className="flex-1 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-emerald-100 shadow-xl rounded-2xl">
-        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border-b border-emerald-100 min-h-[80px] flex items-center px-6 py-3 rounded-t-2xl">
-          <div className="flex items-center gap-3 text-lg font-bold w-full">
+      {/* 中间设置区 */}
+      <Card className="w-full xl:w-1/3 2xl:w-1/4 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-emerald-100 shadow-xl rounded-2xl">
+        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border-b border-emerald-100 min-h-[60px] lg:min-h-[80px] flex items-center px-4 lg:px-6 py-2 lg:py-3 rounded-t-2xl">
+          <div className="flex items-center gap-2 lg:gap-3 text-base lg:text-lg font-bold w-full">
             <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">生成设置</span>
           </div>
         </div>
-        <CardContent className="space-y-4 p-4">
+        <CardContent className="space-y-3 lg:space-y-4 p-3 lg:p-4">
           {/* 提示词输入 */}
-          <div className="space-y-3">
+          <div className="space-y-2 lg:space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-gray-700">自定义提示词</label>
+              <label className="text-xs lg:text-sm font-semibold text-gray-700">自定义提示词</label>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={handleCopyPrompt}
                 disabled={!prompt}
-                className="h-8 w-8 p-0 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                className="h-7 w-7 lg:h-8 lg:w-8 p-0 hover:bg-orange-50 hover:text-orange-600 transition-colors"
               >
-                <Copy className="w-4 h-4" />
+                <Copy className="w-3 h-3 lg:w-4 lg:h-4" />
               </Button>
             </div>
             <Textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="使用自然语言描述你想要生成的图片..."
-              className="min-h-[100px] resize-none border-emerald-200 focus:border-emerald-400 focus:ring-emerald-400/20 rounded-lg text-sm"
+              className="min-h-[80px] lg:min-h-[100px] resize-none border-emerald-200 focus:border-emerald-400 focus:ring-emerald-400/20 rounded-lg text-xs lg:text-sm"
             />
           </div>
 
           {/* 生成数量滑块 */}
-          <div className="space-y-4">
+          <div className="space-y-3 lg:space-y-4">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-gray-700">生成数量</label>
-              <span className="text-sm font-medium bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent bg-emerald-50 px-2 py-1 rounded-lg">{numOutputs[0]} 张</span>
+              <label className="text-xs lg:text-sm font-semibold text-gray-700">生成数量</label>
+              <span className="text-xs lg:text-sm font-medium bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent bg-emerald-50 px-2 py-1 rounded-lg">{numOutputs[0]} 张</span>
             </div>
             <Slider
               value={numOutputs}
@@ -483,11 +495,11 @@ export default function ImageToImage() {
           <Button
             onClick={handleGenerate}
             disabled={isGenerating || !prompt.trim() || referenceImages.length === 0}
-            className="w-full h-11 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+            className="w-full h-10 lg:h-11 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 text-sm lg:text-base"
           >
             {isGenerating ? (
               <>
-                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                <Loader2 className="w-4 h-4 lg:w-5 lg:h-5 mr-2 animate-spin" />
                 生成中...
               </>
             ) : (
@@ -496,37 +508,37 @@ export default function ImageToImage() {
           </Button>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-3">
-              <p className="text-sm text-red-600 text-center font-medium">{error}</p>
+            <div className="bg-red-50 border border-red-200 rounded-xl p-2 lg:p-3">
+              <p className="text-xs lg:text-sm text-red-600 text-center font-medium">{error}</p>
             </div>
           )}
           
           {textResponse && (
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-              <h4 className="text-sm font-semibold text-blue-800 mb-2">AI 响应</h4>
-              <p className="text-sm text-blue-700 whitespace-pre-wrap">{textResponse}</p>
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 lg:p-4">
+              <h4 className="text-xs lg:text-sm font-semibold text-blue-800 mb-2">AI 响应</h4>
+              <p className="text-xs lg:text-sm text-blue-700 whitespace-pre-wrap">{textResponse}</p>
             </div>
           )}
         </CardContent>
       </Card>
 
       {/* 右侧生成结果区 */}
-      <Card className="flex-1 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-blue-100 shadow-xl rounded-2xl">
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-100 min-h-[80px] flex items-center px-6 py-3 rounded-t-2xl">
-          <div className="flex items-center gap-3 text-lg font-bold w-full">
+      <Card className="w-full xl:w-1/3 2xl:w-1/2 pt-0 overflow-hidden bg-white/90 backdrop-blur-sm border-blue-100 shadow-xl rounded-2xl">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-100 min-h-[60px] lg:min-h-[80px] flex items-center px-4 lg:px-6 py-2 lg:py-3 rounded-t-2xl">
+          <div className="flex items-center gap-2 lg:gap-3 text-base lg:text-lg font-bold w-full">
             <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">生成结果</span>
           </div>
         </div>
-        <CardContent className="space-y-4 p-4">
+        <CardContent className="space-y-3 lg:space-y-4 p-3 lg:p-4">
           {isGenerating ? (
-            <div className="flex flex-col items-center justify-center py-12 space-y-4">
+            <div className="flex flex-col items-center justify-center py-8 lg:py-12 space-y-3 lg:space-y-4">
               <div className="relative">
-                <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
-                  <Loader2 className="w-8 h-8 animate-spin text-white" />
+                <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+                  <Loader2 className="w-6 h-6 lg:w-8 lg:h-8 animate-spin text-white" />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-pulse opacity-20"></div>
               </div>
-              <p className="text-orange-600 font-medium">正在生成图片，请稍候...</p>
+              <p className="text-orange-600 font-medium text-sm lg:text-base">正在生成图片，请稍候...</p>
             </div>
           ) : generatedImages.length > 0 ? (
             <>
@@ -545,27 +557,27 @@ export default function ImageToImage() {
                 {/* 全屏按钮 */}
                 <button
                   onClick={() => handleFullscreen(generatedImages[currentGeneratedImageIndex])}
-                  className="absolute top-2 right-2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200 border border-blue-200"
+                  className="absolute top-1 right-1 lg:top-2 lg:right-2 w-7 h-7 lg:w-8 lg:h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200 border border-blue-200"
                   title="全屏显示"
                 >
-                  <Maximize2 className="w-4 h-4 text-blue-600" />
+                  <Maximize2 className="w-3 h-3 lg:w-4 lg:h-4 text-blue-600" />
                 </button>
                 
                 {/* 操作按钮组 */}
-                <div className="absolute top-2 left-2 flex gap-1">
+                <div className="absolute top-1 left-1 lg:top-2 lg:left-2 flex gap-0.5 lg:gap-1">
                   <button
                     onClick={() => handleCopyImage(generatedImages[currentGeneratedImageIndex])}
-                    className="p-1.5 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg hover:bg-white transition-all duration-200 border border-blue-200"
+                    className="p-1 lg:p-1.5 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg hover:bg-white transition-all duration-200 border border-blue-200"
                     title="复制图片"
                   >
-                    <Copy className="w-4 h-4 text-blue-600" />
+                    <Copy className="w-3 h-3 lg:w-4 lg:h-4 text-blue-600" />
                   </button>
                   <button
                     onClick={() => handleDownloadImage(generatedImages[currentGeneratedImageIndex], currentGeneratedImageIndex)}
-                    className="p-1.5 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg hover:bg-white transition-all duration-200 border border-blue-200"
+                    className="p-1 lg:p-1.5 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg hover:bg-white transition-all duration-200 border border-blue-200"
                     title="下载图片"
                   >
-                    <Download className="w-4 h-4 text-blue-600" />
+                    <Download className="w-3 h-3 lg:w-4 lg:h-4 text-blue-600" />
                   </button>
                 </div>
                 
@@ -575,7 +587,7 @@ export default function ImageToImage() {
               {/* 页码显示 */}
               {generatedImages.length > 1 && (
                 <div className="text-center">
-                  <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                  <span className="text-xs lg:text-sm font-medium text-blue-600 bg-blue-50 px-2 lg:px-3 py-1 rounded-full border border-blue-200">
                     {currentGeneratedImageIndex + 1} / {generatedImages.length}
                   </span>
                 </div>
@@ -583,7 +595,7 @@ export default function ImageToImage() {
               
               {/* 缩略图网格 */}
               {generatedImages.length > 1 && (
-                <div className="grid grid-cols-4 gap-2 max-h-32 overflow-y-auto">
+                <div className="grid grid-cols-3 lg:grid-cols-4 gap-1.5 lg:gap-2 max-h-32 overflow-y-auto">
                   {generatedImages.map((imageUrl, index) => (
                     <button
                       key={index}
@@ -607,9 +619,9 @@ export default function ImageToImage() {
               )}
 
               {/* 图片对比区域 */}
-              <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200">
-                <h3 className="text-lg font-semibold text-blue-800 mb-4 flex items-center gap-2">
-                  <ArrowLeftRight className="w-5 h-5" />
+              <div className="mt-4 lg:mt-6 p-3 lg:p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200">
+                <h3 className="text-base lg:text-lg font-semibold text-blue-800 mb-3 lg:mb-4 flex items-center gap-2">
+                  <ArrowLeftRight className="w-4 h-4 lg:w-5 lg:h-5" />
                   图片对比
                 </h3>
                 
@@ -626,7 +638,7 @@ export default function ImageToImage() {
                         className="w-full h-full object-contain"
                       />
                     )}
-                    <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    <div className="absolute top-2 left-2 lg:top-4 lg:left-4 bg-black/70 text-white px-2 lg:px-3 py-0.5 lg:py-1 rounded-full text-xs lg:text-sm font-medium">
                       原图
                     </div>
                   </div>
@@ -645,7 +657,7 @@ export default function ImageToImage() {
                       height={400}
                       className="w-full h-full object-contain"
                     />
-                    <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    <div className="absolute top-2 right-2 lg:top-4 lg:right-4 bg-black/70 text-white px-2 lg:px-3 py-0.5 lg:py-1 rounded-full text-xs lg:text-sm font-medium">
                       生成图
                     </div>
                   </div>
@@ -657,29 +669,29 @@ export default function ImageToImage() {
                     onMouseDown={handleComparisonDragStart}
                   >
                     {/* 分割线中心的拖拽手柄 */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg border-2 border-blue-300 flex items-center justify-center">
-                      <ArrowLeftRight className="w-4 h-4 text-blue-600" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 lg:w-8 lg:h-8 bg-white rounded-full shadow-lg border-2 border-blue-300 flex items-center justify-center">
+                      <ArrowLeftRight className="w-3 h-3 lg:w-4 lg:h-4 text-blue-600" />
                     </div>
                   </div>
                   
                   {/* 百分比显示 */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-blue-600 border border-blue-200">
+                  <div className="absolute bottom-2 lg:bottom-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm px-2 lg:px-3 py-0.5 lg:py-1 rounded-full text-xs lg:text-sm font-medium text-blue-600 border border-blue-200">
                     {Math.round(comparisonPosition)}%
                   </div>
                 </div>
                 
                 {/* 参考图片选择 */}
                 {referenceImages.length > 1 && (
-                  <div className="mt-4">
-                    <label className="block text-sm font-medium text-blue-700 mb-2">
+                  <div className="mt-3 lg:mt-4">
+                    <label className="block text-xs lg:text-sm font-medium text-blue-700 mb-2">
                       选择参考图片：
                     </label>
-                    <div className="flex gap-2 overflow-x-auto pb-2">
+                    <div className="flex gap-1.5 lg:gap-2 overflow-x-auto pb-2">
                       {referenceImages.map((file, index) => (
                         <button
                           key={index}
                           onClick={() => setSelectedReferenceIndex(index)}
-                          className={`flex-shrink-0 w-16 h-16 rounded-lg border-2 overflow-hidden transition-all duration-200 ${
+                          className={`flex-shrink-0 w-12 h-12 lg:w-16 lg:h-16 rounded-lg border-2 overflow-hidden transition-all duration-200 ${
                             selectedReferenceIndex === index 
                               ? 'border-blue-500 ring-2 ring-blue-200' 
                               : 'border-blue-200 hover:border-blue-400'
@@ -700,12 +712,12 @@ export default function ImageToImage() {
               </div>
             </>
           ) : (
-            <div className="flex flex-col items-center justify-center py-12 space-y-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center">
-                <ImageIcon className="w-8 h-8 text-blue-500" />
+            <div className="flex flex-col items-center justify-center py-8 lg:py-12 space-y-3 lg:space-y-4">
+              <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center">
+                <ImageIcon className="w-6 h-6 lg:w-8 lg:h-8 text-blue-500" />
               </div>
               <div className="text-center space-y-1">
-                <p className="text-blue-600 font-medium text-sm">生成的图片将在这里显示</p>
+                <p className="text-blue-600 font-medium text-xs lg:text-sm">生成的图片将在这里显示</p>
                 <p className="text-xs text-blue-400">暂无内容</p>
               </div>
             </div>
